@@ -32,17 +32,22 @@ function Login({ setUser }) {
 
       // save token to local storage 
       localStorage.setItem("accessToken", response.accessToken);
-      setUser(response.data)
+      localStorage.setItem("user", JSON.stringify(response.data));
+
+      console.log("Stored Token:", localStorage.getItem("accessToken"));
+      console.log("Stored User:", localStorage.getItem("user"));
+
+      setUser(response.data);
 
       // fetch role from user data 
 
       const role = response.data.role
       // check whether user is admin or normal user
       if (role === ROLES.ADMIN) {
-        navigate('/admin/dashboard')
+        navigate('/categories')
       }
       else {
-        navigate('/product/details')
+        navigate('/products')
       }
       setFormData({
         email: "",

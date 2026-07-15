@@ -4,9 +4,15 @@ import toast from "react-hot-toast";
 import { ROLES } from "@/utils/constants";
 import { logoutAPI } from "@/services/authAPI";
 import { ShoppingCart } from 'lucide-react';
+import { ShoppingBag } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 function Navbar({ user, setUser }) {
     const navigate = useNavigate();
+    const location = useLocation();
+    const isCreatePage = location.pathname === `/create-product`
+    const iscreateCategory=location.pathname==='/create-category'
+    const isAllProduct=location.pathname==='/products'
 
     const handleLogout = async () => {
         try {
@@ -21,22 +27,61 @@ function Navbar({ user, setUser }) {
         }
     }
     return (
-         <nav className="flex justify-between items-center px-6 h-16 border-b">
-            <Link to="/product/details" className="text-center font-semibold text-lg ">Welcome to Shop store</Link>
-                <div className="flex items-center gap-3">
+        <nav className="flex justify-between items-center px-6 h-16 border-b">
+            <div className="text-center font-semibold text-lg flex gap-2 select-none"><ShoppingBag size={25} color="black" /> Welcome to Ecommerce Shop Application</div>
+            <div className="flex items-center gap-3">
                 {user ? (
                     <>
-                        <Link to="/cart">
+                        {user.role !== ROLES.ADMIN && <Link to="/cart">
                             <ShoppingCart size={32} color="black" />
-                        </Link>
+                        </Link>}
 
                         {user.role === ROLES.ADMIN && (
-                            <Link to="/admin/dashboard">
-                                <Button variant="outline">Admin Dashboard</Button>
-                            </Link>
+
+
+                            <div className="flex justify-between items-center gap-2">
+
+                                <Button
+                                    onClick={() =>
+                                        isCreatePage
+                                            ? navigate("/categories")
+                                            : navigate("/create-product")
+                                    }
+                                >
+                                    {isCreatePage ? "Cancel" : "Create Product"}
+                                </Button>
+                                
+                                <Button
+                                    onClick={() =>
+                                        iscreateCategory
+                                            ? navigate("/categories")
+                                            : navigate("/create-category")
+                                    }
+                                >
+                                    {iscreateCategory ? "Cancel" : "Create Category"}
+                                    </Button>
+
+
+
+                                    <Button
+                                    onClick={() =>
+                                        isAllProduct
+                                            ? navigate("/categories")
+                                            : navigate("/products")
+                                    }
+                                >
+                                    {isAllProduct ? "Back to Categories" : "All Products"}
+                                    </Button>
+
+                                <Button variant="outline">Admin Panel</Button>
+                            </div>
+
+
+
+
                         )}
 
-                        <span className="text-sm text-muted-foreground hidden sm:inline">Hi, {user.firstName}</span>
+                        <span className="text-sm text-muted-foreground hidden sm:inline">Hi, {user.firstname}</span>
                         <Button onClick={handleLogout}>Logout</Button>
                     </>
                 ) : (

@@ -1,30 +1,40 @@
 import axiosInstance from "./axiosInstance";
 
-export const addCartAPI=async(productData)=>{
-    const response=await axiosInstance.post('/add/cart')
-    return response.data
-}
+// Add Product To Cart
+export const addCartAPI = async (data) => {
+  const response = await axiosInstance.post("/add/cart", data);
+  return response.data;
+};
 
-// get cart
-export const getCart=async()=>{
-    const response=await axiosInstance.get('/get/cart')
-    return response.data
-}
+// Get User Cart
+export const getCartAPI = async () => {
+  const response = await axiosInstance.get("/get/cart");
+  return response.data;
+};
 
-// update quantity
-export const updateQuantity=async(productId,userData)=>{
-    const response=await axiosInstance.patch(`/update/quantity/${productId}`,userData)
-    return response.data
-}
+// Update Quantity
+export const updateQuantityAPI = async (productId, quantity) => {
+  const response = await axiosInstance.patch(
+    `/update/quantity/${productId}`,
+    {
+      quantity,
+    }
+  );
 
-// removeProductFromCart
-export const removeProductFromCart=async(productId)=>{
-    const response=await axiosInstance.delete(`/remove-product/cart/${productId}`)
-    return response.data
-}
+  return response.data;
+};
 
-//clear cart
-export const clearCart=async()=>{
-    const response=await axiosInstance.delete('/clear/cart')
-    return response.data
-}
+// Remove Product
+export const removeProductAPI = async (productId) => {
+  const response = await axiosInstance.delete(
+    `/remove-product/cart/${productId}`
+  );
+
+  return response.data;
+};
+
+// Clear Cart
+export const clearCartAPI = async () => {
+  const response = await axiosInstance.delete("/clear/cart");
+  return response.data;
+};

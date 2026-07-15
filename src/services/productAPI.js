@@ -3,33 +3,32 @@ import axiosInstance from "./axiosInstance";
 
 // create product
 export const createProductAPI= async(userData)=>{
-const response= await axiosInstance.post('/create/product',userData)
-return response.data 
+return await axiosInstance.post('/create/product',userData)
+
 }
 
 //get all products
-export const allProductAPI=async()=>{
-    const response=await axiosInstance.get('/all/products')
-    return response.data
+export const getAllProducts=async()=>{
+  return await axiosInstance.get('/all/products')
+ 
 }
 
-// single product by productId
-export const getSingleProductAPI=async(productId)=>{
-    const response=await axiosInstance.get(`/single/product/${productId}`)
-    return response.data
-}
+export const getSingleProduct = async (productId) => {
+  return await axiosInstance.get(`/single/product/${productId}`);
+};
+
 
 //update product
-
-export const updateProductAPI=async(productId,userData)=>{
-    const response=await axiosInstance.put(`/update/product/${productId}`,userData)
-    return response.data
-}
-
+export const updateProduct = async (productId, data) => {
+  return await axiosInstance.put(
+    `/update/product/${productId}`,
+    data
+  );
+};
 //delete product
-export const deleteProductAPI=async(productId)=>{
-    const response=await axiosInstance.delete(`/delete/product/${productId}`)
-    return response.data
+export const deleteProduct=async(productId)=>{
+    return await axiosInstance.delete(`/delete/product/${productId}`)
+
 }
 
 
