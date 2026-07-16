@@ -1,23 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 
-import Loader from "../components/Loader";
+import Loader from "@/components/Loader";
 import ProductCard from "../components/ProductCard";
 
 import { getAllProducts, deleteProduct} from "@/services/productAPI";
 import toast from "react-hot-toast";
+import { CartContext } from "@/context/CartContext";
 
 function Products() {
   const [products, setProducts] = useState([]);
 
   const [loading, setLoading] = useState(true);
+  const {fetchCart}=useContext(CartContext)
 
   async function fetchProducts() {
     try {
       const response =
         await getAllProducts();
+        await fetchCart()
 
       setProducts(response.data.data);
       toast.success(response.data.message)
@@ -61,14 +64,14 @@ function Products() {
 
       <div className="flex justify-between items-center mb-8">
 
-        <h1 className="text-4xl font-bold">
+        <h1 className="text-4xl font-bold text-[#F4F9FF]">
           Products
         </h1>
 
 
       </div>
 
-      <p className="mb-6 text-gray-500">
+      <p className="mb-6  text-[#F4F9FF]">
         Total Products :
         {" "}
         {products.length}

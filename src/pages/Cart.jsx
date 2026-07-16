@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import toast from "react-hot-toast";
+import { CartContext } from "@/context/CartContext";
 
 import {
-  getCartAPI,
   updateQuantityAPI,
   removeProductAPI,
   clearCartAPI,
@@ -13,36 +13,7 @@ import Loader from "@/components/Loader";
 import { Link } from "react-router-dom";
 
 function Cart() {
-  const [cart, setCart] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  // Fetch Cart
-  const fetchCart = async () => {
-    try {
-      setLoading(true);
-
-      const response = await getCartAPI();
-
-      setCart(response.data);
-
-
-
-    } catch (error) {
-      console.log(error);
-
-      if (error.response?.status === 400) {
-        setCart(null);
-      }
-
-      toast.error(error.response?.data?.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCart();
-  }, []);
+  const {cart, loading,fetchCart,setLoading} = useContext(CartContext);
 
   // Update Quantity
   const updateQuantity = async (productId, quantity) => {
@@ -102,11 +73,11 @@ function Cart() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-5">
+    <div className="max-w-6xl mx-auto p-5 ">
 
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 ">
 
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-[#f4f9fe]">
           My Cart
         </h1>
 
@@ -121,19 +92,19 @@ function Cart() {
 
       {/* Cart Items */}
 
-      <div className="space-y-6">
+      <div className="space-y-6 ">
 
         {cart.items.map((item) => (
 
           <div
             key={item.product._id}
-            className="border rounded-lg p    -4 flex gap-5"
+            className="border rounded-lg p-4 flex gap-5 bg-[#f4f9fe]"
           >
 
             <img
               src={item.product.images[0]}
               alt={item.product.title}
-              className="w-36 h-36 object-cover rounded"
+              className="w-36 h-36 object-cover rounded border border-black "
             />
 
             <div className="flex-1">
@@ -211,18 +182,18 @@ function Cart() {
 
       <div className="mt-10 border-t pt-5 flex justify-between">
 
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-2xl font-bold text-[#f4f9fe]">
           Total
         </h2>
 
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-2xl font-bold text-[#f4f9fe]">
           ₹ {cart.totalPrice}
         </h2>
 
       </div>
 
         <Link to={'/products'} >
-        <Button className="mt-3">BacK</Button>
+        <Button className="mt-3 text-[#f4f9fe]">BacK</Button>
         </Link>
 
     </div>

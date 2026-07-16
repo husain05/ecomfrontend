@@ -86,8 +86,8 @@ function Register() {
         <div className="flex justify-center items-center m-auto min-h-[calc(100vh-64px)]">
             <Card className="w-full max-w-sm  ">
                 <CardHeader>
-                    <CardTitle className='text-center '>Create your account</CardTitle>
-                    <CardDescription className='text-center'>
+                    <CardTitle className='text-center text-[#0A2647]'>Create your account</CardTitle>
+                    <CardDescription className='text-center '>
                         Fill your details to register
                     </CardDescription>
                 </CardHeader>

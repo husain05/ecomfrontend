@@ -123,8 +123,41 @@
     }
   body {
     @apply bg-background text-foreground;
+      /* #F4F9FF */
+    background-color:#0A2647
     }
   html {
     @apply font-sans;
     }
+}
+.navbar{
+  background-color: #F4F9FF ;
+}
+
+.heading {
+  color: #769460;
+}
+.bag{
+  color: red;
+}
+.login{
+  background-color: #0A2647;
+  color: white;
+}
+.signup{
+  color: white;
+  background-color: red;
+}
+Form{
+  background-color: #F4F9FF;
+}
+Label{
+  color: red;
+}
+Button{
+color: white;
+background-color: red;
+}
+footer{
+  color: #F4F9FF;
 }

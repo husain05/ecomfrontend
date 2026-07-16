@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -10,29 +10,38 @@ import { ShoppingCart } from "lucide-react";
 import { ROLES } from "@/utils/constants";
 import { addCartAPI } from "@/services/cartAPI";
 import toast from "react-hot-toast";
+import { CartContext } from "@/context/CartContext";
 
 function ProductCard({ product, onDelete }) {
-
+    const {fetchCart}=useContext(CartContext)
     const storedUser = localStorage.getItem("user");
-    console.log("storedUser ? :", storedUser)
+    // console.log("storedUser ? :", storedUser)
     const user = storedUser ? JSON.parse(storedUser) : null;
-    console.log("user ? :", user)
+    // console.log("user ? :", user)
     const isAdmin = user?.role === ROLES.ADMIN;
-    console.log("isAdmin ? :", isAdmin)
+    // console.log("isAdmin ? :", isAdmin)
 
     const [quantity, setQuantity] = useState(1);
     // for adding product to cart 
+
+    
     const addToCart = async (productId) => {
         try {
             const response = await addCartAPI({
                 productId,
                 quantity,
             });
-            toast.success(response.message);
+              await fetchCart(); 
+             toast.success(response.message);
         } catch (error) {
             toast.error(error.response?.data?.message || "Unable to add product");
         }
     };
+
+    // if quantity is more than stock
+    if(quantity>=product.stock){
+        toast.error('your selected quantity is more than stock')
+    }
 
     return (
         <Card className="overflow-hidden">

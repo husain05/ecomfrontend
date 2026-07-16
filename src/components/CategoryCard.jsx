@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 function CategoryCard({ category, onDelete }) {
   return (
-    <Card>
+    <Card className="bg-[#f4f9fe]">
         
 
-      <CardContent className="p-5">
+      <CardContent className="p-5 ">
 
         <h2 className="text-2xl font-bold">
           {category.name}

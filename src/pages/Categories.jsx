@@ -58,7 +58,7 @@ function Categories() {
 
             <div className="mb-5">
 
-                <h2 className="text-gray-500">
+                <h2 className=" text-[#f4f9fe]">
                     Total Categories : {categories.length}
                 </h2>
 
@@ -66,7 +66,7 @@ function Categories() {
 
             <div className="flex justify-between items-center mb-8">
 
-                <h1 className="text-4xl font-bold">
+                <h1 className="text-4xl font-bold text-[#f4f9fe]">
                     Categories
                 </h1>
 
@@ -87,15 +87,16 @@ function Categories() {
             </div>
 
             {categories.length === 0 ? (
-                <h2>No Categories Found</h2>
+                <h2 className="text-4xl font-bold text-[#f4f9fe]">No Categories Found</h2>
             ) : (
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-3 gap-6 ">
 
                     {categories.map((category) => (
                         <CategoryCard
                             key={category._id}
                             category={category}
                             onDelete={handleDelete}
+                          
                         />
                     ))}
 
